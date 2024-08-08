@@ -1,0 +1,112 @@
+<style> 
+      label {
+        font-weight: 90;
+        font-size: 10px;
+      }
+      h1 {
+        margin: 0px;
+      }
+      body {
+        color: black;
+        font-weight: 900;
+        display: "flex";
+        margin: 0%;
+        background-color: beige;
+        height: 100vh;
+        flex-direction: column;
+      }
+      #header {
+        background: bisque;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        animation: 1s ease-out 0s 1 slideInFromUp;
+
+      }
+      #container {
+        display: flex;
+        position: relative;
+        flex: 1;
+        background-color: beige;
+       
+      }
+      #sidebar {
+        background: rgb(165, 122, 42);
+        width: 300px;
+        padding: 20px;
+        box-sizing: border-box;
+       
+      }
+      #main {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+        gap: 20px;
+      }
+
+      input{
+        border-radius: 5px;
+        height: 30px;
+      }
+
+      .submitBtn:active {
+        background-color: rgba(2, 2, 251, 0.646) !important;
+      }
+
+
+      .grid-item .vert-box {
+        background: wheat;
+        color: black;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px;
+      }
+
+       #chatbox {
+        position: absolute;
+        width: 100px;
+        display: flex;
+        background-color: beige;
+        border-radius: 100%;
+        z-index: 0;
+        bottom: 5%;
+        right: 5%;
+        z-index: 20;
+       }
+
+       #messagebox {
+        padding: 20px;
+       }
+
+       #messagebox:hover {
+        padding:30px
+       }
+
+       #fixedDiv {
+        position: fixed;
+        color: white;
+        background-color: sandybrown;
+        display: flex;
+        border-radius: 100%;
+        width: 5%;
+        bottom: 5%;
+        left: 5%;
+        height: 80px;
+        z-index: 21;
+        align-items: center;
+        justify-content: center;
+       }
+      
+        @keyframes slideInFromUp {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(0);
+          }
+       }
+    </style>
