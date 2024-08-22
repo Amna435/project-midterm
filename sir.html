@@ -2,34 +2,99 @@
     <head>
         <title>First Class Html</title>
         <link rel='icon' type='image/png' href='simple-twitter-16x16-icon-png-7.png' />
-        <link rel='stylesheet' href='amna.css' />
-        <style>
-            .discount-price {
-                text-decoration: line-through;
-                color: red
+        <script src="tailwindcss.js"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'blue': {
+                                DEFAULT: '#353887',
+                                50: '#9C9ED8',
+                                100: '#8D90D2',
+                                200: '#7073C7',
+                                300: '#5256BB',
+                                400: '#4144A4',
+                                500: '#353887',
+                                600: '#25275F',
+                                700: '#151736',
+                                800: '#06060E',
+                                900: '#000000',
+                                950: '#000000'
+                            },
+                            'red': {
+                                DEFAULT: '#CF2E39',
+                                50: '#FEFBFB',
+                                100: '#F9E4E6',
+                                200: '#EFB6BA',
+                                300: '#E5898F',
+                                400: '#DA5B63',
+                                500: '#CF2E39',
+                                600: '#A9262F',
+                                700: '#841D24',
+                                800: '#5E151A',
+                                900: '#390D10',
+                                950: '#26080A'
+                            },
+                            'white': {
+                                DEFAULT: '#E8E8E8',
+                                50: '#FFFFFF',
+                                100: '#FCFCFC',
+                                200: '#F7F7F7',
+                                300: '#F2F2F2',
+                                400: '#EDEDED',
+                                500: '#E8E8E8',
+                                600: '#CCCCCC',
+                                700: '#B0B0B0',
+                                800: '#949494',
+                                900: '#787878',
+                                950: '#6A6A6A'
+                            },
+                            'black': {
+                                DEFAULT: '#0F0F0F',
+                                50: '#6B6B6B',
+                                100: '#616161',
+                                200: '#4D4D4D',
+                                300: '#383838',
+                                400: '#242424',
+                                500: '#0F0F0F',
+                                600: '#0A0A0A',
+                                700: '#050505',
+                                800: '#000000',
+                                900: '#000000',
+                                950: '#000000'
+                            },
+                            'seaGreen': {
+                                DEFAULT: '#31A24C',
+                                50: '#A6E4B5',
+                                100: '#97DFA8',
+                                200: '#77D68E',
+                                300: '#58CD74',
+                                400: '#3AC15B',
+                                500: '#31A24C',
+                                600: '#247738',
+                                700: '#174C24',
+                                800: '#0A210F',
+                                900: '#000000',
+                                950: '#000000'
+                            },
+                        }
+                    }
+                }
             }
-            .actual-price {
-                color: green;
-            }
- 
-            .paymentLabel {
-                display: flex;
-                align-items: center;
-            }
- 
-        </style>
+        </script>
     </head>
  
-    <body>    
-        <div id='header' class='slideDown'>
-          <h1>Header</h1>
+    <body class="bg-white-50 flex flex-col text-blue-900 h-svh">    
+        <div class="bg-red-50 p-8">
+          <h1 class="text-blue-500 text-6xl">Header</h1>
         </div>
-        <div id='container'>
-          <div id='sidebar'>
-            <h1>Sidebar</h1>
+        <div id='container'  class="flex grow flex-column">
+          <div class="w-72 box-border p-8 bg-red-100">
+            <h1 class="text-blue-400 text-2xl">Sidebar</h1>
           </div>
-          <div id='mainBox' style='display: flex; width: 100%; gap:10px'>
-            <div class='grid-item slideDown' style='width: 30%;'>
+          <div id='mainBox' class="flex w-full gap-4">
+            <div class='bg-white-500 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
                 <form id='taskForm' onsubmit='event.preventDefault();' style='display: flex; flex-direction:column; gap: 4px; '>
                   <label>Checkout Form</label>
                   <input type='text' name='first_name' required id='first_name' placeholder="Enter you first_name"/>
@@ -57,11 +122,11 @@
                   </select>
                   <span style='color:red;' hidden id='taskErrorField-country'>This field is required</span>
                   <div>
-                      <label class="paymentLabel">
+                      <label class="flex gap-2 blue-700">
                           <input type='radio' name='task' required id='payment_method' checked placeholder="Enter you payment_method"/>
                           Cash on Delivery
                       </label>
-                      <label class="paymentLabel">
+                      <label class="flex gap-2">
                         <input type='radio' name='task' required id='payment_method' placeholder="Enter you payment_method"/>
                         Online Payment
                     </label>
@@ -81,6 +146,9 @@
                 <div id="cartTotal" style="margin-top: 10px;">
                     Total: <span id="total-sum"></span>
                 </div>                
+            </div>
+            <div id='main' class="p-4 grid grow border-box grid-cols-2 gap-4">
+
             </div>
         </div>
       </body>
@@ -145,138 +213,66 @@
         ];
 
         renderProducts();
+        function validateFields() {
+        var basicFields = [
+            'first_name',
+            'last_name',
+            'address',
+            'postal_code'
+        ]
+            const basicValidation = () => {
+            var checkValidation = true;
+            basicFields.forEach((x)=> {
+                    if(document.getElementById(x).value == '' || document.getElementById(x).value == null) {
+                   checkValidation = false;
+                    document.getElementById('taskErrorField-'+x).hidden = false
+                   } else {
+                    document.getElementById('taskErrorField-' + x).hidden = true
+                }
+            })
+               return checkValidation
+        }
  
-            // const basicValidation = () => {
-            //     var checkValidation = true;
-            //     basicFields.forEach((x)=> {
-            //         if(document.getElementById(x).value == '' || document.getElementById(x).value == null) {
-            //             checkValidation = false;
-            //             document.getElementById('taskErrorField-'+x).hidden = false
-            //         }
-            //     })
-            //     return checkValidation
-            // }
-            // var basicFields = [
-            //     'first_name',
-            //     'last_name',
-            //     'address',
-            //     'postal_code'
-            // ]
- 
-            // var testBasicValidation = basicValidation();
-            // if(!testBasicValidation) {
-            //     return false
-            // }
-            // const mobileRegex = /^(\+92|92|033|03)[ -]*\d{3}[ -]*\d{7}$/;
-            // if (!mobileRegex.test(document.getElementById('number').value)) {
-            //     document.getElementById('taskErrorField-number').hidden = false
-            //     return false
-            // }
-            if(email) {
- 
-            }
-            if(country) {
- 
-            }
-            if(city) {
- 
-            }
-            if(cartItems) {
- 
-            }
- 
-        //  // Validation function GPT VAlidation
-        //  let isValid = true;
- 
-        // // Reset error messages
-        // const errorFields = document.querySelectorAll('[id^="taskErrorField-"]');
-        // errorFields.forEach(field => {
-        //   field.hidden = true;
-        // });
- 
-        // // First Name validation
-        // const firstName = document.getElementById('first_name').value.trim();
-        // if (firstName === '') {
-        //   document.getElementById('taskErrorField-first_name').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Last Name validation
-        // const lastName = document.getElementById('last_name').value.trim();
-        // if (lastName === '') {
-        //   document.getElementById('taskErrorField-last_name').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Phone Number validation
-        // const phoneNumber = document.getElementById('number').value.trim();
-        // // Regular expression for Pakistani phone number patterns
-        // const phoneRegex = /^(\+92|92|033|03)[ -]*\d{3}[ -]*\d{7}$/;
-        // if (phoneNumber === '' || !phoneRegex.test(phoneNumber)) {
-        //   document.getElementById('taskErrorField-number').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Address validation
-        // const address = document.getElementById('address').value.trim();
-        // if (address === '') {
-        //   document.getElementById('taskErrorField-address').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Email validation
-        // const email = document.getElementById('email').value.trim();
-        // // Basic email format validation
-        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        // if (email === '' || !emailRegex.test(email)) {
-        //   document.getElementById('taskErrorField-email').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Postal Code validation
-        // const postalCode = document.getElementById('postal_code').value.trim();
-        // if (postalCode === '') {
-        //   document.getElementById('taskErrorField-postal_code').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // City validation (assuming it's a select box)
-        // const city = document.getElementById('city').value;
-        // if (city === '') {
-        //   document.getElementById('taskErrorField-city').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Country validation (assuming it's a select box)
-        // const country = document.getElementById('country').value;
-        // if (country === '') {
-        //   document.getElementById('taskErrorField-country').hidden = false;
-        //   isValid = false;
-        // }
- 
-        // // Payment Method validation (assuming it's a radio input)
-        // const paymentMethod = document.querySelector('input[name="task"]:checked');
-        // if (!paymentMethod) {
-        //   // No payment method selected
-        //   alert('Please select a payment method.');
-        //   isValid = false;
-        // }
- 
-        // // If all validations pass, submit the form or perform further actions
-        // if (isValid) {
-        //   alert('Form submitted successfully!');
-        //   // Uncomment the line below to actually submit the form
-        //   // document.getElementById('checkoutForm').submit();
-        // }
- 
- 
- 
-        function submitCheckout() {
-         if (validateFields()) {
-            console.log('Form submitted successfully');
+        var testBasicValidation = basicValidation();
+        if (!testBasicValidation) {
+            return false
+        }
+        const validatePhoneNumber = (phoneNumber) => {
+            const regex = /^(\+92|92|033|03)[ -]*\d{3}[ -]*\d{7}$/;
+            return regex.test(phoneNumber);
+        }
+        if (!validatePhoneNumber(document.getElementById('number').value)) {
+            document.getElementById('taskErrorField-number').hidden = false
+            return false
         } else {
-            console.log('Validation failed');
-             }
+            document.getElementById('taskErrorField-number').hidden = true
+        }
+        const validateEmail = (email) => {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email);
+        }
+        if (!validateEmail(document.getElementById('email').value)) {
+            document.getElementById('taskErrorField-email').hidden = false;
+            return false;
+        } else {
+            document.getElementById('taskErrorField-email').hidden = true;
+        }
+        if (checkoutForm.cart_details.length == 0) {
+            alert("Please add items in your cart first");
+            return false
+        }
+        return true
+
+    }
+    function submitCheckout() {
+        const checkForm = validateFields();
+        if (checkForm) {
+            alert("Thank you for shopping with us");
+            checkoutForm = { ...initialCheckoutForm };
+            checkoutForm.cart_details = [];
+            document.getElementById('taskForm').reset();
+            renderCarts();
+        }
         }
  
  
