@@ -93,7 +93,7 @@
           <div class="w-72 box-border p-8 bg-red-100">
             <h1 class="text-blue-400 text-2xl">Sidebar</h1>
           </div>
-          <div id='mainBox' class="flex w-full gap-4">
+          <div id='mainBox' class=" flex w-full gap-4">
             <div class='bg-white-500 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
                 <form id='taskForm' onsubmit='event.preventDefault();' style='display: flex; flex-direction:column; gap: 4px; '>
                   <label>Checkout Form</label>
@@ -114,7 +114,7 @@
                     <option >Lahore</option>
                     <option >Islamabed</option>
                     <option >Peshawar</option>
-                    <option >Queta</option>
+                    <option >Quetta</option>
                   </select>
                   <span style='color:red;' hidden id='taskErrorField-city'>This field is required</span>
                   <select id="country" name="country">
@@ -130,14 +130,16 @@
                         <input type='radio' name='task' required id='payment_method' placeholder="Enter you payment_method"/>
                         Online Payment
                     </label>
-                  </div>
-                  <button type='button' onclick="submitCheckout()" id='submitBtn' class='submitBtn' style='background-color: blue; color: white; padding: 10px; border: none; border-radius: 5px;'>Checkout</button>
+                </div>
+                  <button type='button' onclick="submitCheckout()" id='submitBtn'class='bg-blue-400 text-white-200 p-2 border-0 hover:bg-blue-700 active:bg-blue-700 rounded-md'>Checkout</button>
                 </form>
                 <div>
+                    <div>
                   <label>Cart Details</label>
                   <div id="boxList"  style="width: 80%; display: flex; flex-direction: column; gap: 4px;" class="grid-item slideDown">
                   </div>
-                    <div id="cartTotal" style="margin-top: 10px;"></div>
+                    <div id="cartTotal" style="margin-top: 10px;">
+                    </div>
                     Total: <span id="total-sum"></span>
                   </div>
                 </div>
@@ -147,10 +149,11 @@
                     Total: <span id="total-sum"></span>
                 </div>                
             </div>
-            <div id='main' class="p-4 grid grow border-box grid-cols-2 gap-4">
-
+            </div>
+            <div id='main' class=" bg-white-500 p-4 grid grow border-box grid-cols-2 gap-4">
             </div>
         </div>
+    </div>
       </body>
     <script>
         var checkoutForm = {
@@ -174,6 +177,7 @@
             total_amount: '',
             cart_details: [],
         }
+
         var products = [
             {
                 id: 1,
@@ -327,14 +331,14 @@
  
             checkoutForm.cart_details.forEach((x) => {
                 var priceBox = x.discounted_price < x.price ? `<div class='actual-price'>
-                        <span class='discount-price'> `+x.price+`</span>
+                        <span class='text-red-600 line-through'> `+x.price+`</span>
                        ${x.discounted_price}
-                    </div>` : `<div class='actual-price'>
+                    </div>` : `<div class='text-seaGreen-500'>
                          ${x.price}
                     </div>` ;
  
  
-                cartHtml += `<div class="box" style="background-color: sandybrown ;">
+                cartHtml +=`<div class="box bg-red-50 font-medium text-blue-900">
                     <div style="padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;">
                         <p>${x.name}</p>
                         ${priceBox}
@@ -342,7 +346,7 @@
                             Quantity ${x.quantity}
                         </div>
                         <div>
-                            <button onclick="removeItemCart(`+ x.id +`)">
+                            <button class="text-red-500" onclick="removeItemCart(`+ x.id + `)">
                                 X
                             </button>
                         </div>
@@ -359,20 +363,20 @@
  
             products.forEach((x) => {
                 var priceBox = x.discounted_price < x.price ? `<div class='actual-price'>
-                        <span class='discount-price'> `+x.price+`</span>
+                      <span class='text-red-600 line-through'> `+ x.price + `</span>
                          ${x.discounted_price}
-                    </div>` : `<div class='actual-price'>
+                    </div>` : `<div class='text-seaGreen-500'>
                          ${x.price}
                     </div>` ;
  
  
-                productHtml += `<div class='grid-item slideDown'>
-                    <h1>${x.name}</h1>
-                    <p>${x.description}</p>
+                productHtml +=`<div class='bg-white-500 text-black-500 p-4 rounded-md shadow-2xl slideDown'>
+                    <h1 class='font-bold'>${x.name}</h1>
+                    <p class='font-medium'>${x.description}</p>
                     ${priceBox}
                     <div class='addToCartBox'>
                         <input type='number' id='qty`+ x.id +`'/>
-                        <button onclick='addToCart(`+x.id+`)'>Add to Cart</button>
+                   <button class='bg-blue-400 text-white-200 font-medium rounded-lg w-32 py-1' onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
  
                     </div>
                 </div>`;
