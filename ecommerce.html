@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        .container {
+            width: 900px;
+            max-width: 90%;
+            margin: auto;
+            text-align: center;
+            padding-top: 10px;
+            transition: transform 0.5s;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .icon-cart {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .icon-cart svg {
+            margin-right: 10px;
+        }
+
+        .icon-cart span {
+            display: flex;
+            width: 17px;
+            height: 16px;
+            background-color: gray;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-radius: 20px;
+            position: absolute;
+            top: 0;
+            right: -10px;
+        }
+
+        .listProduct {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .item {
+            background-color: #ffdab9;
+            padding: 15px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 50%;
+            filter: drop-shadow(10px);
+        }
+
+        .item h2 {
+            font-weight: 500;
+            font-size: large;
+        }
+
+        .addcart {
+            background-color: #ffc0ba;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .addcart:hover {
+            background-color: burlywood;
+        }
+
+        .cartTab {
+            width: 400px;
+            background-color: black;
+            color: white;
+            position: fixed;
+            top: 0;
+            right: -400px;
+            bottom: 0;
+            display: grid;
+            grid-template-rows: 70px 1fr 70px;
+            transition: 0.5s;
+        }
+
+        body.showCart .cartTab {
+            right: 0;
+        }
+
+        body.showCart .container {
+            transform: translateX(-250px);
+        }
+
+        .cartTab h1 {
+            padding: 20px;
+            margin: 0;
+            font-weight: lighter;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .btn button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: sans-serif;
+        }
+
+        .close, .checkout {
+            background-color: sandybrown;
+            color: white;
+            font-size: 15px;
+        }
+
+        .close:hover, .checkout:hover {
+            background-color: burlywood;
+            border-radius: 15px;
+        }
+
+        .cartTab .listCart .item .img {
+            width: 100%;
+        }
+
+        .cartTab .listCart .item {
+            display: grid;
+            background-color: black;
+            grid-template-columns: 70px 150px 50px 1fr;
+            gap: 10px;
+            text-align: center;
+            align-items: center;
+        }
+
+        .listCart .quantity span {
+            display: inline-block;
+            width: 20px;
+            height: 25px;
+            background-color: white;
+            color: black;
+            border-radius: 55px;
+            cursor: pointer;
+        }
+
+        .listCart .quantity span:nth-child(2) {
+            background-color: black;
+            color: white;
+        }
+
+        .listCart .item:nth-child(even) {
+            background-color: darkgray;
+        }
+
+        .listCart {
+            overflow: auto;
+        }
+
+        .listCart::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 10px 0;
+            border-top: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">PRODUCT LIST</div>
+            <div class="icon-cart">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.268 6A2 2 0 0 0 14 9h1v1a2 2 0 0 0 3.04 1.708l-.311 1.496a1 1 0 0 1-.979.796H8.605l.208 1H16a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L4.686 5H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 .979.796L6.939 6h5.329Z"/>
+                    <path d="M18 4a1 1 0 1 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0V8h2a1 1 0 1 0 0-2h-2V4Z"/>
+                </svg>
+                <span>0</span>
+            </div>
+        </div>
+        <div class="listProduct">
+            <div class="item" data-id="1" data-name="Love ReDesigned" data-price="500" data-image="love Redesigned.webp">
+                <img src=" love Redesigned.webp" alt="Love ReDesigned">
+                <h2>Love ReDesigned <br>(By Lauren Asher)</h2>
+            </br>
+                <div class="price">Rs.500</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="2" data-name="Do-Over" data-price="400" data-image="do-over.jpg">
+                <img src="do-over.jpg" alt="The Do-Over">
+                <h2>The Do-Over <br>(By Lynn Painter)</h2>
+            </br>
+                <div class="price">Rs.400</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="3" data-name="The Rule Book" data-price="700" data-image="rule book.webp">
+                <img src="rule book.webp" alt="The Rule Book">
+                <h2>The Rule Book <br>(By Sarah Adams)</h2>
+            </br>
+                <div class="price">Rs.700</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="4" data-name="Funny Story" data-price="450" data-image="funny.jpg">
+                <img src="funny.jpg " alt="Funny Story">
+                <h2>Funny Story <br>(By Emily Henry)</h2>
+            </br>
+                <div class="price">Rs.450</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="5" data-name="Marriage For One" data-price="475" data-image="marriage.jpg">
+                <img src="marriage.jpg" alt="Marriage For One">
+                <h2>Marriage For One <br>(By Ella Maise)</h2>
+            </br>
+                <div class="price">Rs.475</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="6" data-name="Check&Mate" data-price="670" data-image="Check-Mate-by-Ali-Hazelwood-Review.webp">
+                <img src="Check-Mate-by-Ali-Hazelwood-Review.webp" alt="Check&Mate">
+                <h2>Check&Mate <br>(By Ali Hazelwood)</h2>
+            </br>
+                <div class="price">Rs.670</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="7" data-name="Girl Abroad" data-price="485" data-image="girl.jpg">
+                <img src="girl.jpg" alt="Girl Abroad">
+                <h2>Girl Abroad <br>(By Elle Kennedy)</h2>
+            </br>
+                <div class="price">Rs.485</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+            <div class="item" data-id="8" data-name="love on the brain" data-price="370" data-image="Love on the brain.webp">
+                <img src="Love on the brain.webp" alt="Love on the brain">
+                <h2>Love on the brain <br>(By Ali HazelWood)</h2>
+            </br>
+                <div class="price">Rs.370</div>
+                <button class="addcart">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+    <div class="cartTab">
+        <h1>Cart</h1>
+        <div class="listCart" id="cartItem">Your Cart Is Empty</div>
+        <div class="foot">
+            <div>Total</div>
+            <div class="total">Rs.0</div>
+        </div>
+        <div class="btn">
+            <button class="close">Close</button>
+            <button class="checkout">Check Out</button>
+        </div>
+    </div>
+    <script>
+        const products = document.querySelectorAll('.item');
+        const cart = document.querySelector('.icon-cart span');
+        const listCart = document.querySelector('.listCart');
+        const totalElement = document.querySelector('.total');
+        let cartItems = [];
+
+        products.forEach(product => {
+            product.querySelector('.addcart').addEventListener('click', () => {
+                const productId = product.getAttribute('data-id');
+                const productName = product.getAttribute('data-name');
+                const productPrice = parseFloat(product.getAttribute('data-price'));
+                const productImage = product.getAttribute('data-image');
+
+                addToCart(productId, productName, productPrice, productImage);
+            });
+        });
+
+        function addToCart(id, name, price, image) {
+            let found = cartItems.find(item => item.id === id);
+            if (found) {
+                found.quantity++;
+            } else {
+                cartItems.push({ id, name, price, image, quantity: 1 });
+            }
+            renderCart();
+            document.body.classList.add('showCart');
+        }
+
+        function renderCart() {
+            listCart.innerHTML = '';
+            let total = 0;
+            if (cartItems.length === 0) {
+                listCart.innerHTML = 'Your Cart Is Empty';
+                cart.textContent = 0; 
+                totalElement.textContent = 'Rs.0'; 
+                return; 
+            }
+            cartItems.forEach(item => {
+                total += item.price * item.quantity;
+
+                listCart.innerHTML += `
+                    <div class="item">
+                        <img src="${item.image}" alt="${item.name}" class="img">
+                        <div>${item.name}</div>
+                        <div>Rs.${item.price}</div>
+                        <div class="quantity">
+                            <span class="decrease" data-id="${item.id}">-</span>
+                            <span>${item.quantity}</span>
+                            <span class="increase" data-id="${item.id}">+</span>
+                        </div>
+                    </div>
+                `;
+            });
+            cart.textContent = cartItems.length;
+            totalElement.textContent = 'Rs.' + total;
+            addEventListeners();
+        }
+
+        function addEventListeners() {
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', () => {
+                    updateQuantity(button.getAttribute('data-id'), -1);
+                });
+            });
+
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', () => {
+                    updateQuantity(button.getAttribute('data-id'), 1);
+                });
+            });
+        }
+
+        function updateQuantity(id, change) {
+            let item = cartItems.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cartItems = cartItems.filter(item => item.id !== id);
+                }
+            }
+            renderCart();
+        }
+
+        document.querySelector('.icon-cart').addEventListener('click', () => {
+            document.body.classList.toggle('showCart');
+        });
+
+        document.querySelector('.close').addEventListener('click', () => {
+            document.body.classList.remove('showCart');
+        });
+
+        document.querySelector('.checkout').addEventListener('click', () => {
+            alert('Checkout successful!');
+            cartItems = [];
+            renderCart();
+            document.body.classList.remove('showCart');
+        });
+        function addToCart(id, name, price, image) {
+      let found = cartItems.find(item => item.id === id);
+      if (found) {
+        found.quantity++;
+     } else {
+        cartItems.push({ id, name, price, image, quantity: 1 });
+     }
+    renderCart();
+
+    document.body.classList.add('showCart');
+}
+
+    </script>
+</body>
+</html>
